@@ -1,15 +1,27 @@
-name = input("Type your name: ")
-print(f"Welcome {name} to this adventure!")
+def start_game():
+    name = input("Type your name: ").strip()
+    print(f"Welcome {name} to this adventure!")
+    return name
 
-answer = input(
-    "You are on a dirt road, it has come to an end and you can go left or right. Which way would you like to go? "
-).lower()
 
-if answer == "left":
-    answer = input(
-        "You come to a river, you can walk around it or swim arcoss? Type walk or swim: "
-    ).lower()
+def choose_path():
+    return (
+        input(
+            "You are on a dirt road, it has come to an end and you can go left or right. Which way would you like to go? "
+        )
+        .strip()
+        .lower()
+    )
 
+
+def river_crossing():
+    answer = (
+        input(
+            "You come to a river, you can walk around it or swim across? Type walk or swim: "
+        )
+        .strip()
+        .lower()
+    )
     if answer == "swim":
         print("You swam across and were eaten by an alligator.")
     elif answer == "walk":
@@ -17,26 +29,50 @@ if answer == "left":
     else:
         print("Not a valid option. You lose.")
 
-elif answer == "right":
-    answer = input(
-        "You come to a bridge, it loos wobbly. Do you want to cross it or head back (cross/back)? "
-    ).lower()
+
+def bridge_crossing():
+    answer = (
+        input(
+            "You come to a bridge, it looks wobbly. Do you want to cross it or head back (cross/back)? "
+        )
+        .strip()
+        .lower()
+    )
     if answer == "back":
         print("You go back and lose.")
     elif answer == "cross":
-        answer = input(
-            "You cross the bridge and meet a stranger. Do you talk to him (yes/no)? "
-        ).lower()
-
+        answer = (
+            input(
+                "You cross the bridge and meet a stranger. Do you talk to him (yes/no)? "
+            )
+            .strip()
+            .lower()
+        )
         if answer == "yes":
-            print("You talk to the stranger and he give you gold. You WIN!")
+            print("You talk to the stranger and he gives you gold. You WIN!")
         elif answer == "no":
             print("You ignore the stranger and they are offended. You lose.")
         else:
             print("Not a valid option. You lose.")
     else:
         print("Not a valid option. You lose.")
-else:
-    print("Not a valid option. You lose.")
 
-print(f"Thank you for trying {name}!")
+
+def main():
+    name = start_game()
+    while True:
+        path = choose_path()
+        if path == "left":
+            river_crossing()
+        elif path == "right":
+            bridge_crossing()
+        else:
+            print("Not a valid option. You lose.")
+        play_again = input("Would you like to play again? (yes/no): ").strip().lower()
+        if play_again != "yes":
+            break
+    print(f"Thank you for trying {name}!")
+
+
+if __name__ == "__main__":
+    main()
