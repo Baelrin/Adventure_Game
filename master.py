@@ -4,6 +4,16 @@ PLAY_AGAIN_MESSAGE = "Would you like to play again? (yes/no): "
 
 
 def get_user_input(prompt, valid_options):
+    """
+    Prompt the user for input until they provide a valid option.
+
+    Parameters:
+    prompt (str): The message displayed to the user.
+    valid_options (list of str): A list of accepted responses.
+
+    Returns:
+    str: The user's valid input, lowercased and stripped of whitespace.
+    """
     while True:
         answer = input(prompt).strip().lower()
         if answer in valid_options:
@@ -12,12 +22,24 @@ def get_user_input(prompt, valid_options):
 
 
 def start_game():
+    """
+    Start the game by welcoming the user and asking for their name.
+
+    Returns:
+    str: The name of the user.
+    """
     name = input("Type your name: ").strip()
     print(WELCOME_MESSAGE.format(name=name))
     return name
 
 
 def choose_path():
+    """
+    Ask the user to choose a path at a fork in the road.
+
+    Returns:
+    str: The user's choice of path.
+    """
     return get_user_input(
         "You are on a dirt road, it has come to an end and you can go left or right. Which way would you like to go? ",
         ["left", "right"],
@@ -25,6 +47,9 @@ def choose_path():
 
 
 def river_crossing():
+    """
+    Handle the event where the user encounters a river and must choose to swim or walk around.
+    """
     answer = get_user_input(
         "You come to a river, you can walk around it or swim across? Type walk or swim: ",
         ["walk", "swim"],
@@ -36,6 +61,10 @@ def river_crossing():
 
 
 def bridge_crossing():
+    """
+    Handle the event where the user encounters a bridge and must decide to cross it or go back.
+    Further interaction may occur based on the user's choices.
+    """
     answer = get_user_input(
         "You come to a bridge, it looks wobbly. Do you want to cross it or head back (cross/back)? ",
         ["back", "cross"],
@@ -54,6 +83,10 @@ def bridge_crossing():
 
 
 def main():
+    """
+    The main function to start the game loop. It initiates the game, handles user choices,
+    and manages game progression including repeating the game.
+    """
     name = start_game()
     while True:
         path = choose_path()
